@@ -12,5 +12,11 @@ if [ "$#" != "1" ]; then
 	exit 1
 fi
 
+PSEUDODPATH=$PSEUDODPATH
+
+if [ "$PSEUDODPATH" = "" ]; then
+	PSEUDODPATH="/opt/pseudod/bepd/"
+fi
+
 find /opt/pseudod/bepd/ -depth -iname "*.pseudo" -exec ./pdhelpextracter.pl "{}" "$1" ";"
 
