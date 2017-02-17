@@ -18,5 +18,5 @@ if [ "$PSEUDODPATH" = "" ]; then
 	PSEUDODPATH="/opt/pseudod/bepd/"
 fi
 
-find /opt/pseudod/bepd/ -depth -iname "*.pseudo" -exec pdhelpextracter.pl "{}" "$1" ";"
+find "$PSEUDODPATH" -depth -iname "*.pseudo" -exec pdhelpextracter.pl "{}" "$1" ";"
 
