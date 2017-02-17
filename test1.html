@@ -1,0 +1,188 @@
+
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-file">Documentación de entsal.pseudo</p>
+<p class="docmypd-paragraph">
+  Este archivo provee manipulación de <i class="docmypd-italic">lujos</i>, en estos, las operaciones
+  de entrada y salida, se realiza comúnmente por operaciones <i class="docmypd-italic">ppend</i>,
+  por las cuales, se agrega el contenido al flujo de salida, para lectura,
+  una vez que se lee del flujo, esa palabra es eliminada, prohibiendo su
+  lectura más de dos veces.
+</p></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Un objeto que sirve de buffer para operaciones E/S.</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">clase </b>BufferTexto<b class="docmypd-keyword"> hereda </b>Objeto
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Escribe un texto en la salida estándar.</p>
+<p class="docmypd-paragraph">
+  Equivalente a <code class="docmypd-code">escribir</code>
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">texto</var>: <span class="docmypd-argument-desc">Valor a escribir.</span></li>
+</p>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>Escribir <i class="docmypd-identifier">[ Objeto texto ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Casi identico a <a class="docmypd-link" href="#Escribir">Escribir</a>.</p>
+<p class="docmypd-paragraph">
+  La diferencia esta en que ingresa un valor nueva linea al final, como
+  en <code class="docmypd-code">escribir</code> seguido de <code class="docmypd-code">nl</code>
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">texto</var>: <span class="docmypd-argument-desc">Valor a escribir.</span></li>
+</p>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>EscribirLinea <i class="docmypd-identifier">[ Objeto texto ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Lee un valor desde la entrada estandar, y lo retorna.</p>
+<h3 class="docmypd-returns-title">Devuelve</h3>
+<p class="docmypd-returns">El valor leido.</p>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>LeerPalabra <i class="docmypd-identifier">[ -> Objeto resultado ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Escribe en un objeto <a class="docmypd-link" href="#BufferTexto">BufferTexto</a>.</p>
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">yo</var></li>
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">texto</var>: <span class="docmypd-argument-desc">Texto a escribir en el.</span></li>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>BufferTexto#escribir <i class="docmypd-identifier">[ BufferTexto buffer, Objeto texto ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Similar a <a class="docmypd-link" href="#BufferTexto\#escribir">BufferTexto\#escribir</a>.</p>
+<p class="docmypd-paragraph">
+  Este además, agrega un nueva linea despues de texto.
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">yo</var></li>
+</p>
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">texto</var>: <span class="docmypd-argument-desc">Texto a escribir en el.</span></li>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>BufferTexto#escribirLinea <i class="docmypd-identifier">[ Objeto buffer, Objeto texto ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Representa una configuracion de salida.</p>
+<p class="docmypd-paragraph">
+  Donde:
+  
+<ul class="docmypd-userlist">
+<li><code class="docmypd-code">MARCA</code>: Es el comodin para el reemplazo.</li>
+<li><code class="docmypd-code">SPEC</code>: Es el comodin para el caracter especial.</li>
+<li><code class="docmypd-code">NLINE</code>: Es el comodin para el nueva linea (junto con <code class="docmypd-code">SPEC</code>).</li>
+<li><code class="docmypd-code">NLINER</code>: Es el comodin para el retorno de carro (junto con <code class="docmypd-code">SPEC</code>).</li>
+<li><code class="docmypd-code">NLINE</code>: Es el comodin para el nueva linea del sistema (junto con <code class="docmypd-code">SPEC</code>).</li>
+<li><code class="docmypd-code">NRESOLV</code>: Es el comodin para resolver un argumento (junto con <code class="docmypd-code">SPEC</code>)</li>
+</ul>
+</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">clase </b>DatosDeSalida<b class="docmypd-keyword"> hereda </b>Objeto
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Es la configuracion predeterminada del sistema de E/S.</p>
+<p class="docmypd-paragraph">
+  Donde:
+  
+<ul class="docmypd-userlist">
+<li><b class="docmypd-bold">MARCA</b> es <code class="docmypd-code">%</code>.</li>
+<li><b class="docmypd-bold">SPEC</b> es <code class="docmypd-code">\</code>.</li>
+<li><b class="docmypd-bold">NLINE</b> es <code class="docmypd-code">n</code>.</li>
+<li><b class="docmypd-bold">NLINER</b> es <code class="docmypd-code">r</code>.</li>
+<li><b class="docmypd-bold">NLINERR</b> es <code class="docmypd-code">k</code>.</li>
+<li><b class="docmypd-bold">NRESOLV</b> es <code class="docmypd-code"><</code>.</li>
+</ul>
+</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">instancia </b>DatosDeSalida DATOS_DE_IMPRIMIR
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Imprime una lista de argumentos.</p>
+<p class="docmypd-paragraph">
+  Los separa por espacios.
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">str</var>: <span class="docmypd-argument-desc">Primer argumento a imprimir (obligatorio).</span></li>
+</p>
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">args...</var>: <span class="docmypd-argument-desc">Lista de argumentos terminada en <a class="docmypd-link" href="#builtins.pseudo#NULO">builtins.pseudo#NULO</a>.</span></li>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">Stack.Underflow</p>
+<p class="docmypd-paragraph">
+  Si la lista de argumentos no termina en <a class="docmypd-link" href="#builtins.pseudo#NULO">builtins.pseudo#NULO</a>, se bloqueara y
+  terminara con un <i class="docmypd-italic">tack underflow</i>.
+</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>Imprimir <i class="docmypd-identifier">[ str args... NULO ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Equivalente a imprimir.</p>
+<p class="docmypd-paragraph">
+  Solo que agrega un nl al final.
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">str</var>: <span class="docmypd-argument-desc">Primer argumento a imprimir (obligatorio).</span></li>
+</p>
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">args...</var>: <span class="docmypd-argument-desc">Lista de argumentos terminada en <a class="docmypd-link" href="#builtins.pseudo#NULO">builtins.pseudo#NULO</a>.</span></li>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">Stack.Underflow</p>
+<p class="docmypd-paragraph">
+  Si la lista de argumentos no termina en <a class="docmypd-link" href="#builtins.pseudo#NULO">builtins.pseudo#NULO</a>, se bloqueara y
+  terminara con un <i class="docmypd-italic">tack underflow</i>.
+</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>ImprimirLinea <i class="docmypd-identifier">[ str args... NULO ]</i>
+</pre></code></div>
+
+<hr /><div class="docmypd-section">
+<p class="docmypd-brief">Equivalente en PseudoD a printf.</p>
+<p class="docmypd-paragraph">
+  El formateo se realiza de la siguiente forma:
+  
+  Si se encuentra un comodin de reemplazo (por defecto <code class="docmypd-code">%</code>) se saca un argumento
+  y se imprime, si encambio, se encuentra un comodin de caracter especial,
+  se formatea el siguiente caracter y se imprime.
+  
+  Es decir, lo que en C es <code class="docmypd-code">"Hola\r\nMundo %s"</code> aqui es <code class="docmypd-code">"Hola\r\n Mundo %"</code>.
+  Si se desea imprimir un caracter <code class="docmypd-code">%</code>, basta con agregar un \ atras: <code class="docmypd-code">"\%"</code> = <code class="docmypd-code">"%"</code>.
+  En caso de que se requiera el nuevalinea del sistema, utilize
+  <code class="docmypd-code">\k</code>. <code class="docmypd-code">"\k"</code> = <code class="docmypd-code">std::endl</code>.
+  
+  A diferencia de C printf, este no requiere especificación del tipo, solo el
+  comodin. En total, lo formatos aceptados son: <code class="docmypd-code">\r</code> = Retorno de carro, <code class="docmypd-code">\n</code> =
+  Nueva linea, <code class="docmypd-code">\k</code> = Nueva linea del sistema, <code class="docmypd-code">%</code> = Argumento, <code class="docmypd-code">\<</code> = Argumento
+  resuelto. Para escapar <code class="docmypd-code">\</code> use <code class="docmypd-code">\\</code>.
+  
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">str</var>: <span class="docmypd-argument-desc">Cadena a formatear</span></li>
+</p>
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">args...</var>: <span class="docmypd-argument-desc">Lista de argumentos, no se verifica su tamaño.</span></li>
+</ul>
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">Stack.Underflow</p>
+<p class="docmypd-paragraph">
+  Si se especifica un comodin de caracter especial en el final de la cadena,
+  o se especifica un comodin de reemplazo y falta el argumento, causara un
+  <i class="docmypd-italic">tack underflow</i>.
+</p>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">funcion </b>ImprimirFormato <i class="docmypd-identifier">[ str args... ]</i>
+</pre></code></div>
