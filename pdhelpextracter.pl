@@ -19,24 +19,38 @@ sub searchObjectInFile {
 	$printall = 0;
 	$text = "";
 	$result = "";
+	$filedoc = 0;
+	$filestr = "";
 
 	while(<FILE>) {
 		$printall = 1 if($printall == 2);
-		$printall = 3 if(/^( \t\r\n)*(clase|funcion|adquirir|liberar)/ && $printall == 4);
+		$printall = 3 if(/^( \t\r\n)*(clase|estructura|funcion|adquirir|puntero|instancia)/ && $printall == 4);
 
 		$printall = 2 if(/^( \t\r\n)*\[DOCUMENTA( \t\r\n)*$/);
 		$printall = 4 if(/^( \t\r\n)*DOCUMENTA\]( \t\r\n)*$/);
 
+		$printall = 3 if(/^( \t\r\n)*DOCUMENTA\]( \t\r\n)*$/ && $filedoc == 1);
+
+		if(/^( \t\r\n)*\@file/) {
+			$filedoc = 1;
+			$filestr = $_;
+		}
 		if($printall == 1) {
 			$text = "$text  $_";
 		}
 		if($printall == 3) {
-			if(index($_, $tosearch) != -1)
-			{
-				$result = "$result\n\n$text\n$_";
+			if($filedoc == 1) {
+				if(index($filestr, $tosearch) != -1) {
+					$result = "$result\n\n$text";
+				}
+			} else {
+				if(index($_, $tosearch) != -1) {
+					$result = "$result\n\n$text\n$_";
+				}
 			}
 			$text = "";
 			$printall = 0;
+			$filedoc = 0;
 		}
 	}
 
