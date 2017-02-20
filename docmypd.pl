@@ -24,10 +24,30 @@ sub htmlify {
 	foreach $_(split(/\n/, $pddoc)) {
 		$matched = 0;
 
-		s!\<([^\>]+)\>!<a class="docmypd-link" href="#$1">$1</a>!g;
+		s!\&!&amp;!g;
+		s!\<!&lt;!g;
+		s!\>!&gt;!g;
+
+		if(/^[ \r\n\t]*\`\`\`.*$/) {
+			if($codeblock == 0) {
+				$codeblock = 1;
+				$res = "$res\n<code class=\"docmypd-codeblock\"><pre>";
+			} else {
+				$codeblock = 0;
+				$res = "$res\n</pre></code>";
+			}
+			next();
+		}
+
+		if($codeblock == 1) {
+			$res = "$res\n$_";
+			next();
+		}
+
 		s!\*\*\*([^\*]+)\*\*\*!<b class="docmypd-bold"><i class="docmypd-italic">$1</i></b>!g;
 		s!\*\*([^\*]+)\*\*!<b class="docmypd-bold">$1</b>!g;
 		s!\*[^ \r\n\t]([^\*]+)\*!<i class="docmypd-italic">$1</i>!g;
+
 		s!\`([^\`]+)\`!<code class="docmypd-code">$1</code>!g;
 
 		if(/[ \r\n\t]+\\[ \t\n\r]*$/g)
@@ -54,22 +74,6 @@ sub htmlify {
 		} elsif($openlist == 1) {
 			$res = "$res\n</ul>";
 			$openlist = 0;
-		}
-
-		if(/^[ \r\n\t]*\`\`\`.*$/) {
-			if($codeblock == 0) {
-				$codeblock = 1;
-				$res = "$res\n<code class=\"docmypd-codeblock\"><pre>";
-			} else {
-				$codeblock = 0;
-				$res = "$res\n</pre></code>";
-			}
-			next();
-		}
-
-		if($codeblock == 1) {
-			$res = "$res\n$_";
-			next();
 		}
 
 		if(/^[ \t\r\n]*\@(brief|file)[ \r\t\n]+(.+)$/) {
