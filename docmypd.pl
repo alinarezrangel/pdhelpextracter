@@ -119,7 +119,7 @@ sub htmlify {
 			$matched = 1;
 		}
 		if(/^[ \r\t\n]*\@obsolete[ \r\n\t]*$/) {
-			$res = "$res\n<span class=\"docmypd-tag-abstract\">Abstracta</span>";
+			$res = "$res\n<span class=\"docmypd-tag-obsolete\">Obsoleta</span>";
 			$matched = 1;
 		}
 		if($matched == 0)
