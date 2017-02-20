@@ -18,6 +18,8 @@ sub htmlify {
 	$intext = 0;
 	$codeblock = 0;
 	$openlist = 0;
+	$contline = "";
+	$cnt = 0;
 
 	foreach $_(split(/\n/, $pddoc)) {
 		$matched = 0;
@@ -27,6 +29,20 @@ sub htmlify {
 		s!\*\*([^\*]+)\*\*!<b class="docmypd-bold">$1</b>!g;
 		s!\*[^ \r\n\t]([^\*]+)\*!<i class="docmypd-italic">$1</i>!g;
 		s!\`([^\`]+)\`!<code class="docmypd-code">$1</code>!g;
+
+		if(/[ \r\n\t]+\\[ \t\n\r]*$/g)
+		{
+			s/[ \r\t\n]+\\[ \t\n\r]*$/ /g;
+			$contline = "$contline$_";
+			$cnt = 1;
+			next();
+		}
+		elsif($cnt == 1)
+		{
+			$_ = "$contline$_";
+			$contline = "";
+			$cnt = 0;
+		}
 
 		if(/^[ \r\n\t]*\*[ \r\n\t]+(.*)$/) {
 			if($openlist == 0) {
