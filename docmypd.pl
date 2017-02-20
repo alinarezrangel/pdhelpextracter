@@ -20,6 +20,7 @@ sub htmlify {
 	$openlist = 0;
 	$contline = "";
 	$cnt = 0;
+	$lslineblk = 0;
 
 	foreach $_(split(/\n/, $pddoc)) {
 		$matched = 0;
@@ -126,10 +127,20 @@ sub htmlify {
 			if($intext == 0)
 			{
 				$res = "$res\n<p class=\"docmypd-paragraph\">";
+				$lslineblk = 0;
 			}
 			$intext = 1;
 			$res = "$res\n$_";
 			$matched = 1;
+
+			if(/^[ \t\r\n]*$/g) {
+				if($lslineblk == 1) {
+					$res = "$res\n</p><p class=\"docmypd-paragraph\">";
+					$lslineblk = 0;
+				} else {
+					$lslineblk = 1;
+				}
+			}
 		} else {
 			if($intext == 1) {
 				$res = "$res\n</p>";
