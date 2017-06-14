@@ -12,6 +12,11 @@ Exporta los comentarios de documentación de un archivo de PseudoD
 a HTML en una salida simple y minimalista para mayor capacidad de
 personalización mediante CSS.
 
+## DocMyPD-TPL ##
+
+Personaliza DocMyPD con plantillas de CSS y fragmentos HTML para una salida
+utilizable en páginas de documentación.
+
 ## Licencia ##
 
 PDHelpExtracter esta licenciado bajo la licencia del MIT.
@@ -19,4 +24,3 @@ PDHelpExtracter esta licenciado bajo la licencia del MIT.
 ## Autor ##
 
 Alejandro Linarez Rangel.
-

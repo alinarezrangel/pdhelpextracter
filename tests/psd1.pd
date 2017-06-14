@@ -1,0 +1,23 @@
+[DOCUMENTA
+@file psd1.pd
+Prueba de DocMyPD-TPL
+DOCUMENTA]
+
+[DOCUMENTA
+@brief Es un programa.
+Este programa puede ejecutarse llamando el método <Programa#principal>.
+
+```pseudod
+instancia Programa pg
+
+fijar rt a llamar pg#principal finargs
+
+llamar Asertar
+	son iguales rt y {0}
+	{Error: Programa#principal devolvio no-cero}
+finargs
+```
+DOCUMENTA]
+clase Programa hereda Objeto
+	metodo principal
+finclase

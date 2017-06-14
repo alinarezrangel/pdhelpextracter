@@ -1,0 +1,14 @@
+[DOCUMENTA
+@brief Prueba de listas:
+
+ * Hola, esta es una lista de una sola linea.
+ * Hola, esta lista ocupa
+multiples lineas, pero deberia ser renderizada como
+una unica linea.
+ * Hola, esta linea continua a la otra.
+
+@abstract
+DOCUMENTA]
+clase abstracta X hereda Y implementa @Z
+finclase
+

@@ -7,6 +7,8 @@ if($#ARGV < 0) {
 	print "  docmypd.pl [archivo.pseudo] > [archivo.html]\n";
 	print "\n";
 	print "La salida es un HTML plano, sin <body> o <head> y listo para ser editado.\n";
+	print "docmypd.pl Pertenece a la suite de documentación PDHelpExtracter\n";
+	print "véa más en https://github.com/alinarezrangel/pdhelpextracter\n";
 	exit(1);
 }
 
@@ -29,10 +31,10 @@ sub htmlify {
 		s!\<!&lt;!g;
 		s!\>!&gt;!g;
 
-		if(/^[ \r\n\t]*\`\`\`.*$/) {
+		if(/^[ \r\n\t]*\`\`\`(.*)$/) {
 			if($codeblock == 0) {
 				$codeblock = 1;
-				$res = "$res\n<code class=\"docmypd-codeblock\"><pre>";
+				$res = "$res\n<code class=\"docmypd-codeblock\" data-language=\"$1\"><pre>";
 			} else {
 				$codeblock = 0;
 				$res = "$res\n</pre></code>";
@@ -47,9 +49,11 @@ sub htmlify {
 
 		s!\*\*\*([^\*]+)\*\*\*!<b class="docmypd-bold"><i class="docmypd-italic">$1</i></b>!g;
 		s!\*\*([^\*]+)\*\*!<b class="docmypd-bold">$1</b>!g;
-		s!\*[^ \r\n\t]([^\*]+)\*!<i class="docmypd-italic">$1</i>!g;
+		s!\*([^ \r\n\t][^\*]+)\*!<i class="docmypd-italic">$1</i>!g;
 
 		s!\`([^\`]+)\`!<code class="docmypd-code">$1</code>!g;
+
+		s!\&lt\;(.+)\&gt\;!<a class="docmypd-link" href="#$1">$1</a>!g;
 
 		if(/[ \r\n\t]+\\[ \t\n\r]*$/g)
 		{
@@ -69,16 +73,20 @@ sub htmlify {
 			if($openlist == 0) {
 				$res = "$res\n<ul class=\"docmypd-userlist\">";
 			}
-			$res = "$res\n<li>$1</li>";
+			$res = "$res\n</li><li>$1";
 			$openlist = 1;
 			next();
-		} elsif($openlist == 1) {
-			$res = "$res\n</ul>";
+		} elsif($openlist == 1 && /^[ \r\n\t]*$/) {
+			$res = "$res\n</li></ul>";
 			$openlist = 0;
 		}
 
 		if(/^[ \t\r\n]*\@(brief|file)[ \r\t\n]+(.+)$/) {
-			$res = "$res\n<p class=\"docmypd-$1\">$2</p>";
+			if($1 eq "file") {
+				$res = "$res\n<h1 class=\"docmypd-title-file\" id=\"$2\">$2</h1>";
+			} else {
+				$res = "$res\n<p class=\"docmypd-brief\">$2</p>";
+			}
 			$matched = 1;
 		}
 		if(/^[ \t\r\n]*\@arg[ \r\t\n]+([^ \r\t\n]+)[ \r\n\t]+(.+)$/) {
@@ -134,12 +142,7 @@ sub htmlify {
 			$matched = 1;
 
 			if(/^[ \t\r\n]*$/g) {
-				if($lslineblk == 1) {
-					$res = "$res\n</p><p class=\"docmypd-paragraph\">";
-					$lslineblk = 0;
-				} else {
-					$lslineblk = 1;
-				}
+				$res = "$res\n</p><p class=\"docmypd-paragraph\">";
 			}
 		} else {
 			if($intext == 1) {
@@ -199,11 +202,14 @@ sub searchObjectInFile {
 		}
 		if($printall == 3) {
 			$text = htmlify($text);
-			$text = "<hr /><div class=\"docmypd-section\">$text";
 			if($filedoc == 1) {
+				$text = "<hr /><div class=\"docmypd-section\">$text";
 				$result = "$result\n\n$text</div>";
 			} else {
+				/^[ \t\r\n]*([a-z]+)[ \t\r\n]+([^ \t\r\n]+)(.|[ \t\r\n])+$/;
+				$n = $2;
 				$_ = codeify($_);
+				$text = "<hr /><div class=\"docmypd-section\"><h2 class=\"docmypd-title-code\" id=\"$n\">$n</h2>\n$text";
 				$result = "$result\n\n$text\n$_</div>";
 			}
 			$text = "";

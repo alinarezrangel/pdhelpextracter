@@ -9,6 +9,9 @@ if [ "$#" != "1" ]; then
 	echo "  pdhelpextracter-autosearch.sh [objeto a buscar]"
 	echo
 	echo "Es recomendable utilizar algun paginador en la salida"
+	echo
+	echo "pdhelpextracter-autosearch.sh Pertenece a la suite de documentación PDHelpExtracter"
+	echo "véa más en https://github.com/alinarezrangel/pdhelpextracter"
 	exit 1
 fi
 
@@ -19,4 +22,3 @@ if [ "$PSEUDODPATH" = "" ]; then
 fi
 
 find "$PSEUDODPATH" -depth -iname "*.pseudo" -exec pdhelpextracter.pl "{}" "$1" ";"
-

@@ -7,6 +7,8 @@ if($#ARGV < 1) {
 	print "  pdhelpextracter.pl [archivo.pseudo] [objeto a buscar]\n";
 	print "\n";
 	print "Es recomendable utilizar algun paginador en la salida.\n";
+	print "\npdhelpextracter.pl Pertenece a la suite de documentación PDHelpExtracter\n";
+	print "véa más en https://github.com/alinarezrangel/pdhelpextracter\n";
 	exit(1);
 }
 
@@ -63,3 +65,5 @@ $rs = searchObjectInFile($ARGV[0], $ARGV[1]);
 
 print "At $ARGV[0]\n" if($rs ne "");
 print $rs;
+print "\n";
+
