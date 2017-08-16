@@ -102,6 +102,8 @@ sub htmlify {
 		s!\\\\!\&\#92;!g;
 		s!\\\*!\&\#42;!g;
 
+		s!^\*\*([^\*]+)\*\*:$!<h3 class="docmypd-custom-title">$1</h3>!gm;
+
 		s!\*\*\*([^\*]+)\*\*\*!<b class="docmypd-bold"><i class="docmypd-italic">$1</i></b>!g;
 		s!\*\*([^\*]+)\*\*!<b class="docmypd-bold">$1</b>!g;
 		s!\*([^ \r\n\t][^\*]+)\*!<i class="docmypd-italic">$1</i>!g;
