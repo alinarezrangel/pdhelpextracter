@@ -26,7 +26,7 @@ sub searchObjectInFile {
 
 	while(<FILE>) {
 		$printall = 1 if($printall == 2);
-		$printall = 3 if(/^( \t\r\n)*(clase|estructura|funcion|adquirir|puntero|instancia)/ && $printall == 4);
+		$printall = 3 if(/^( \t\r\n)*(clase|estructura|funcion|metodo|procedimiento|adquirir|puntero|instancia)/ && $printall == 4);
 
 		$printall = 2 if(/^( \t\r\n)*\[DOCUMENTA( \t\r\n)*$/);
 		$printall = 4 if(/^( \t\r\n)*DOCUMENTA\]( \t\r\n)*$/);
@@ -66,4 +66,3 @@ $rs = searchObjectInFile($ARGV[0], $ARGV[1]);
 print "At $ARGV[0]\n" if($rs ne "");
 print $rs;
 print "\n";
-

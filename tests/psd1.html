@@ -26,3 +26,54 @@
 </p>
 <code class="docmypd-source"><pre><b class="docmypd-keyword">clase </b>Programa<b class="docmypd-keyword"> hereda </b>Objeto
 </pre></code></div>
+
+<hr /><div class="docmypd-section"><h2 class="docmypd-title-code" id="Programa#principal">Programa#principal</h2>
+
+<p class="docmypd-brief">Inicia el programa</p>
+<p class="docmypd-paragraph">
+  Solamente esta definida la primera llamada, es decir, lo siguiente esta
+  completamente indefinido y puede no funcionar como se espera:
+  
+</p><p class="docmypd-paragraph">
+<code class="docmypd-codeblock" data-language="pseudod"><pre>
+  instancia Programa pg
+  
+  ...
+  
+  escribir {Definido -&gt;}
+  fijar rt a llamar pg#principal finargs
+  
+  ...
+  
+  escribir {Indefinido! -&gt;}
+  fijar rt a llamar pg#principal finargs
+  
+</pre></code>
+  
+</p><p class="docmypd-paragraph">
+<h3 class="docmypd-arguments-title">Argumentos</h3>
+<ul class="docmypd-arguments">
+<li class="docmypd-argument-def"><var class="docmypd-argument-name">yo</var></li>
+</p>
+</ul>
+<p class="docmypd-paragraph">
+  
+</p><p class="docmypd-paragraph">
+<h3 class="docmypd-returns-title">Devuelve</h3>
+<p class="docmypd-returns">Cero (<a class="docmypd-link" href="#builtins.pseudo#CERO">builtins.pseudo#CERO</a> o <code class="docmypd-code">{0}</code>) si todo termina bien o un valor   no-cero de lo contrario.</p>
+</p>
+<p class="docmypd-paragraph">
+  
+</p><p class="docmypd-paragraph">
+<h3 class="docmypd-throws-title">Excepciones</h3>
+<p class="docmypd-throws">ErrorArgumentoInvalido</p>
+</p>
+<p class="docmypd-paragraph">
+  
+</p><p class="docmypd-paragraph">
+<h3 class="docmypd-races-title">Errores</h3>
+<p class="docmypd-races">None</p>
+</p>
+<code class="docmypd-codeblock" data-language=""><pre>
+<code class="docmypd-source"><pre><b class="docmypd-keyword">metodo </b>Programa#principal<b class="docmypd-keyword"> con </b>yo
+</pre></code></div>

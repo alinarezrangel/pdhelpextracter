@@ -5,7 +5,7 @@ DOCUMENTA]
 
 [DOCUMENTA
 @brief Es un programa.
-Este programa puede ejecutarse llamando el método <Programa#principal>.
+Este programa puede ejecutarse llamando el método <Programa\#principal>.
 
 ```pseudod
 instancia Programa pg
@@ -21,3 +21,37 @@ DOCUMENTA]
 clase Programa hereda Objeto
 	metodo principal
 finclase
+
+[DOCUMENTA
+@brief Inicia el programa
+Solamente esta definida la primera llamada, es decir, lo siguiente esta
+completamente indefinido y puede no funcionar como se espera:
+
+```pseudod
+instancia Programa pg
+
+...
+
+escribir {Definido ->}
+fijar rt a llamar pg#principal finargs
+
+...
+
+escribir {Indefinido! ->}
+fijar rt a llamar pg#principal finargs
+
+```
+
+@argyo
+
+@dev Cero (<builtins.pseudo#CERO> o `{0}`) si todo termina bien o un valor \
+no-cero de lo contrario.
+
+@throws ErrorArgumentoInvalido
+
+@races None
+```
+DOCUMENTA]
+metodo Programa#principal con yo
+	devolver {0}
+finmetodo
