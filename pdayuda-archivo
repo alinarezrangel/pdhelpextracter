@@ -64,6 +64,6 @@ sub searchObjectInFile {
 $rs = searchObjectInFile($ARGV[0], $ARGV[1]);
 
 print "En el archivo $ARGV[0]\n" if($rs ne "");
-print "\n";
+print "\n" if ($rs ne "");
 print $rs;
-print "\n\n";
+print "\n\n" if($rs ne "");
