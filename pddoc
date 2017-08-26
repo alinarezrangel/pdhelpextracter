@@ -1,13 +1,13 @@
 #!/usr/bin/perl -w
 
 if($#ARGV < 0) {
-	print "docmypd - Exporta la ayuda de un archivo en PseudoD a HTML\n";
+	print "pddoc - Exporta la ayuda de un archivo en PseudoD a HTML\n";
 	print "Uso:\n";
 	print "\n";
-	print "  docmypd.pl [archivo.pseudo] > [archivo.html]\n";
+	print "  pddoc [archivo.pseudo] > [archivo.html]\n";
 	print "\n";
 	print "La salida es un HTML plano, sin <body> o <head> y listo para ser editado.\n";
-	print "docmypd.pl Pertenece a la suite de documentación PDHelpExtracter\n";
+	print "pddoc Pertenece a la suite de documentación PDHelpExtracter\n";
 	print "véa más en https://github.com/alinarezrangel/pdhelpextracter\n";
 	exit(1);
 }
@@ -32,12 +32,17 @@ sub link_convert {
 
 	$h = index($innerText, "#");
 	$j = index($innerText, ".pseudo");
+	$ns = ($h > 0)? substr($innerText, $h - 1, 1) : "";
 
-	if($h >= 0) {
+	if(($h >= 0) && ($ns ne "\\")) {
 		$show = substr($innerText, $h + 1, length($innerText) - $h);
 		$show =~ s/\\\#/\#/g;
 		$file =~ s/\\\#/\#/g;
 		$file = "&basedir;$file";
+	} elsif(($h >= 0) && ($ns eq "\\")) {
+		$show = $innerText;
+		$show =~ s/\\\#/\#/;
+		$file = "#$show";
 	} elsif($j < 0) {
 		$file = "#$innerText";
 	}
@@ -76,10 +81,14 @@ sub htmlify {
 		$matched = 0;
 		# $sourceline = $_;
 
+		s!\\\\!\&\#92;!g;
+		s!\\<!\&\#60;!g;
+		s!\\>!\&\#62;!g;
+		s!\\\`!\&\#96;!g;
+
 		s!\&!\&amp;!g;
 		s!\<!\&lt;!g;
 		s!\>!\&gt;!g;
-		s!\\\`!\&\#96;!g;
 
 		if(/^[ \r\n\t]*\`\`\`(.*)$/) {
 			if($codeblock == 0) {
@@ -99,10 +108,9 @@ sub htmlify {
 
 		s!\`((?:(?\!\b\`\b).)*?)\`!$x=code_convert($&, $1);"<code class=\"docmypd-code\">$x</code>"!ge;
 
-		s!\\\\!\&\#92;!g;
 		s!\\\*!\&\#42;!g;
 
-		s!^\*\*([^\*]+)\*\*:$!<h3 class="docmypd-custom-title">$1</h3>!gm;
+		s!\*\*([^\*]+)\*\*:!<h3 class="docmypd-custom-title">$1</h3>!gm;
 
 		s!\*\*\*([^\*]+)\*\*\*!<b class="docmypd-bold"><i class="docmypd-italic">$1</i></b>!g;
 		s!\*\*([^\*]+)\*\*!<b class="docmypd-bold">$1</b>!g;
@@ -179,19 +187,19 @@ sub htmlify {
 			$res = "$res\n<h3 class=\"docmypd-returns-title\">Devuelve</h3>\n<p class=\"docmypd-returns\">$1</p>";
 			$matched = 1;
 		}
-		if(/^[ \t\n\r]*\@throws[ \r\n\t]*(.+)$/) {
+		if(/^[ \t\n\r]*\@(?:throws|excepciones)[ \r\n\t]*(.+)$/) {
 			$res = "$res\n<h3 class=\"docmypd-throws-title\">Excepciones</h3>\n<p class=\"docmypd-throws\">$1</p>";
 			$matched = 1;
 		}
-		if(/^[ \t\n\r]*\@races[ \r\n\t]*(.+)$/) {
+		if(/^[ \t\n\r]*\@(?:races|errores)[ \r\n\t]*(.+)$/) {
 			$res = "$res\n<h3 class=\"docmypd-races-title\">Errores</h3>\n<p class=\"docmypd-races\">$1</p>";
 			$matched = 1;
 		}
-		if(/^[ \r\t\n]*\@abstract[ \r\n\t]*$/) {
+		if(/^[ \r\t\n]*\@abstract(?:a|o)?[ \r\n\t]*$/) {
 			$res = "$res\n<span class=\"docmypd-tag-abstract\">Abstracta</span>";
 			$matched = 1;
 		}
-		if(/^[ \r\t\n]*\@obsolete[ \r\n\t]*$/) {
+		if(/^[ \r\t\n]*\@(?:obsolete|obsolet(?:o|a))[ \r\n\t]*$/) {
 			$res = "$res\n<span class=\"docmypd-tag-obsolete\">Obsoleta</span>";
 			$matched = 1;
 		}

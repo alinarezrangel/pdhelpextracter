@@ -1,6 +1,6 @@
-# PDHelpExtracter - DocMyPD - Herramientas de documentación de PseudoD #
+# PDAyuda - DocMyPD - Herramientas de documentación de PseudoD #
 
-## PDHelpExtracter - PDHelpExtracterAutoSearch ##
+## PDAyuda - PDAyudaArchivo ##
 
 No formatea - directamente busca en los comentarios de los archivos
 acerca de un objeto en especifico. Util cuando no se desea exportar
@@ -19,7 +19,7 @@ utilizable en páginas de documentación.
 
 ## Licencia ##
 
-PDHelpExtracter esta licenciado bajo la licencia del MIT.
+Este proyecto esta licenciado bajo la licencia del MIT.
 
 ## Autor ##
 

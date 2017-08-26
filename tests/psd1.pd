@@ -7,6 +7,9 @@ DOCUMENTA]
 @brief Es un programa.
 Este programa puede ejecutarse llamando el método <Programa\#principal>.
 
+Mira este archivo <hola.pseudo#HolaMundo> y <adios.pseudo#Adios\#Mundo> y
+<prueba.pseudo#Probando\#Los\#Enlaces\#De\#DocMyPD>.
+
 ```pseudod
 instancia Programa pg
 

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ "$#" != "1" ]; then
+	echo "pdayuda - Extrae ayuda de PseudoD"
+	echo
+	echo "Busca en \$RUTA_PSEUDOD o en /opt/pseudod/bepd/."
+	echo
+	echo "Uso:"
+	echo "  pdayuda [objeto a buscar]"
+	echo
+	echo "Es recomendable utilizar algun paginador en la salida"
+	echo
+	echo "pdayuda Pertenece a la suite de documentación PDHelpExtracter"
+	echo "véa más en https://github.com/alinarezrangel/pdhelpextracter"
+	exit 1
+fi
+
+PSEUDODPATH=$RUTA_PSEUDOD
+
+if [ "$PSEUDODPATH" = "" ]; then
+	PSEUDODPATH="/opt/pseudod/bepd/"
+fi
+
+find "$PSEUDODPATH" -depth -iname "*.pseudo" -exec pdayuda-archivo "{}" "$@" ";"

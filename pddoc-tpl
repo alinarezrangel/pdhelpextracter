@@ -2,40 +2,40 @@
 # coding: utf-8
 
 function help {
-	echo "docmypd-tpl.sh - Utiliza DocMyPD con plantillas HTML"
+	echo "pddoc-tpl - Utiliza DocMyPD con plantillas HTML"
 	echo
-	echo "docmypd-tpl puede utilizar un conjunto de plantillas para personalizar"
-	echo "la salida de docmypd, estas se encuentran en el directorio de"
+	echo "pddoc-tpl puede utilizar un conjunto de plantillas para personalizar"
+	echo "la salida de pddoc, estas se encuentran en el directorio de"
 	echo "instalación (\$PDHELPEXTRACTER_INSTALLPATH) o en una variable de"
 	echo "entorno (\$DOCMYPDTPL_TEMPLATESPATH)."
 	echo
 	echo "Su uso es:"
 	echo
-	echo "  docmypd-tpl.sh [nombre de la plantilla] [nombre del archivo de configuracion] [archivo/s a documentar]..."
+	echo "  pddoc-tpl [nombre de la plantilla] [nombre del archivo de configuracion] [archivo/s a documentar]..."
 	echo
 	echo "La salida estará en la carpeta \`./pdout/\`"
 	echo
-	echo "El archivo de configuracion es un archivo .docmypd.conf de la forma:"
+	echo "El archivo de configuracion es un archivo .pddoc.conf de la forma:"
 	echo
 	echo "  [field]=\"[value]\"\n..."
 	echo
 	echo "Vease mas con --help-conf"
 	echo
-	echo "docmypd-tpl.sh Pertenece a la suite de documentación PDHelpExtracter"
+	echo "pddoc-tpl Pertenece a la suite de documentación PDHelpExtracter"
 	echo "véa más en https://github.com/alinarezrangel/pdhelpextracter"
 	exit
 }
 
 function help_conf {
 	echo <<HELPOT
-Ayuda de la configuracion de DocMyPD-TPL
+Ayuda de la configuracion de PDDoc-TPL
 
-Los archivos de configuracion terminan en .docmypd.conf y contienen
+Los archivos de configuracion terminan en .pddoc.conf y contienen
 los datos necesarios como para generar los archivos de salida.
 
 Por ejemplo, el siguiente archivo (solo de ejemplo):
 
-  # bepd.docmypd.conf - Archivo de configuracion para la BEPD
+  # bepd.pddoc.conf - Archivo de configuracion para la BEPD
   projectname="Biblioteca Estandar de PseudoD - BEPD"
   navigationmode="inline"
   navigation="<somefile.html|Some File> <someotherfile|Some Other File>"
@@ -65,7 +65,7 @@ El texto/archivo navigation y el campo authors estan en el siguiente formato:
 Si una linea del archivo de configuracion comienza con "#" sera ignorada.
 HELPOT
 	echo
-	echo "docmypd-tpl.sh Pertenece a la suite de documentación PDHelpExtracter"
+	echo "pddoc-tpl Pertenece a la suite de documentación PDHelpExtracter"
 	echo "véa más en https://github.com/alinarezrangel/pdhelpextracter"
 	exit
 }
@@ -114,7 +114,7 @@ for i in "$@"; do
 	echo "Documentando el archivo $i ($fname) -> $fn.html"
 
 	cat "$tppth/header.html" | sed "s/\\\$filename\\\$/$fname/" > "./pdout/$fn.html"
-	./docmypd.pl "$i" >> "./pdout/$fn.html"
+	pddoc "$i" >> "./pdout/$fn.html"
 	cat "$tppth/footer.html" | sed "s/\\\$filename\\\$/$fname/"  >> "./pdout/$fn.html"
 
 	echo "Hecho"
