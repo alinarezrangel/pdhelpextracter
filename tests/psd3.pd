@@ -1,0 +1,14 @@
+[DOCUMENTA
+@brief Hola!
+
+Este es un <@enlace\#a\#metodo>.
+DOCUMENTA]
+adquirir @enlace#a#variable
+
+[DOCUMENTA
+@brief Adios!
+
+Este es un <@enlace\#a\#variable>.
+DOCUMENTA]
+funcion @enlace#a#metodo
+finfun

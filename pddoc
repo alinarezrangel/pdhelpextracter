@@ -24,7 +24,7 @@ sub link_convert {
 	$file = $innerText;
 	$show = $innerText;
 
-	# print("1 $file - $show <br/>");
+	#print("1 $file - $show <br/>");
 
 	if(index($innerText, ".pseudo") >= 0) {
 		$file = $innerText;
@@ -41,7 +41,7 @@ sub link_convert {
 		$file = "&basedir;$file";
 	} elsif(($h >= 0) && ($ns eq "\\")) {
 		$show = $innerText;
-		$show =~ s/\\\#/\#/;
+		$show =~ s/\\\#/\#/g;
 		$file = "#$show";
 	} elsif($j < 0) {
 		$file = "#$innerText";
@@ -49,7 +49,7 @@ sub link_convert {
 
 	$file =~ s/\.pseudo/\.html/g;
 
-	# print("2 $file - $show <br/>");
+	#print("2 $file - $show <br/>");
 
 	return "<a href=\"$file\">$show</a>";
 }
@@ -81,22 +81,23 @@ sub htmlify {
 		$matched = 0;
 		# $sourceline = $_;
 
+		s!\&!\&amp;!g;
+
 		s!\\\\!\&\#92;!g;
 		s!\\<!\&\#60;!g;
 		s!\\>!\&\#62;!g;
 		s!\\\`!\&\#96;!g;
 
-		s!\&!\&amp;!g;
 		s!\<!\&lt;!g;
 		s!\>!\&gt;!g;
 
 		if(/^[ \r\n\t]*\`\`\`(.*)$/) {
 			if($codeblock == 0) {
 				$codeblock = 1;
-				$res = "$res\n<code class=\"docmypd-codeblock\" data-language=\"$1\"><pre>";
+				$res = "$res\n<pre class=\"docmypd-codeblock-pre\"><code class=\"docmypd-codeblock\" data-language=\"$1\">";
 			} else {
 				$codeblock = 0;
-				$res = "$res\n</pre></code>";
+				$res = "$res\n</code></pre>";
 			}
 			next();
 		}
@@ -247,7 +248,7 @@ sub codeify {
 	$pdcode =~ s!(^|[ \r\t\n]+)[ \r\n\t]*(abstracta|adquirir|clase( abstracta)?|estructura|adquirir|puntero|instancia|funcion|metodo( estatico)?|procedimiento|de|con|y|e|hereda(r)?|implementa|extiende)[ \r\n\t]+!<b class="docmypd-keyword">$&</b>!g;
 	$pdcode =~ s!(\[[^\]]+\])!<i class="docmypd-identifier">$&</i>!gmi;
 
-	return "<code class=\"docmypd-source\"><pre>$pdcode</pre></code>";
+	return "<pre class=\"docmypd-source-pre\"><code class=\"docmypd-source\">$pdcode</code></pre>";
 }
 
 sub searchObjectInFile {
